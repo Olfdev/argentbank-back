@@ -101,6 +101,50 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  /user/transactions:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Transactions API
+      description: API for fetching a user's transactions
+      #produces:
+       # - application/json
+      responses:
+        '200':
+          description: User transactions retrieved successully
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Transactions API
+      description: API for updating a user's transaction
+      parameters:
+        - in: body
+          name: body
+          description: Update user transaction attributes
+          required: true
+          schema:
+            $ref: '#/definitions/UserTransaction'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User transactions retrieved successully
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -146,6 +190,53 @@ definitions:
             type: string
           email:
             type: string
+          userName:
+            type: string
+          firstName:
+            type: string
+          lastName:
+            type: string
+          accounts:
+            type: object
+            properties:
+              account_number:
+                type: string
+              account_type:
+                type: string
+  TransactionResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          userId:
+            type: string
+          transactions:
+            type: object
+            properties:
+                type:
+                  type: string
+                category:
+                  type: string
+                description:
+                  type: string
+                note:
+                  type: string
+                amount:
+                  type: number
+                date:
+                  type: string
+                  format: date
+                account_type:
+                  type: string
+                transactionId:
+                  type: integer
   LoginResponse:
     type: object
     properties:
@@ -155,4 +246,11 @@ definitions:
     type: object
     properties:
       userName:
+        type: string
+  UserTransaction:
+    type: object
+    properties:
+      category:
+        type: string
+      note:
         type: string
