@@ -101,7 +101,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions:
+  /user/account:
     post:
       security:
         - Bearer: []
@@ -138,7 +138,7 @@ paths:
         - application/json
       responses:
         '200':
-          description: User transactions retrieved successully
+          description: User transaction updated successully
           schema:
             $ref: '#/definitions/TransactionResponse'
         '400':
@@ -250,6 +250,8 @@ definitions:
   UserTransaction:
     type: object
     properties:
+      transactionId:
+        type: integer
       category:
         type: string
       note:
